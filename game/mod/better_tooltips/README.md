@@ -1,6 +1,10 @@
 # Better Tooltips Mod
 
 A UI enhancement mod for Europa Universalis V that improves tooltip information display and adds useful data to the topbar and economy panels.
+![eu5_XTGnbfoWil](https://github.com/user-attachments/assets/3e13dee7-78f9-4d6d-acb3-7089fe083b38)
+![eu5_orWGFqjTnY](https://github.com/user-attachments/assets/e1a6e562-69e3-4e9c-829a-346a55d0fea9)
+![eu5_RZJtHXpTov](https://github.com/user-attachments/assets/b128fc12-3420-43bf-ba7c-c7f597409444)
+![eu5_vncRnyvcfF](https://github.com/user-attachments/assets/fbc85f1a-2a67-4ec4-a38f-89d69b84a5f6)
 
 ## Features
 
