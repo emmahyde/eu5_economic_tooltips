@@ -285,10 +285,54 @@ Types HUD_TopbarTypes
 										texture = "[GetEstateIcon(TaxRateSetting.GetEstate.GetType)]"
 									}
 
-									# Power/Satisfaction with power icon
+									# Power with power icon
 									text_single = {
 										fontsize = 11
-										raw_text = "[TaxRateSetting.GetEstate.GetRelativePower|0%]@power!/[TaxRateSetting.GetEstate.GetSatisfaction|0%]"
+										raw_text = "[TaxRateSetting.GetEstate.GetRelativePower|0%]@power!"
+									}
+
+									# Satisfaction - RED when < 25%
+									text_single = {
+										fontsize = 11
+										visible = "[LessThan_CFixedPoint(TaxRateSetting.GetEstate.GetSatisfaction, '(CFixedPoint)0.25')]"
+										default_format = "#color_red"
+										raw_text = "[TaxRateSetting.GetEstate.GetSatisfaction|0%]"
+									}
+
+									# Satisfaction - YELLOW when >= 25% and < 50%
+									text_single = {
+										fontsize = 11
+										visible = "[And(GreaterThanOrEqualTo_CFixedPoint(TaxRateSetting.GetEstate.GetSatisfaction, '(CFixedPoint)0.25'), LessThan_CFixedPoint(TaxRateSetting.GetEstate.GetSatisfaction, '(CFixedPoint)0.5'))]"
+										default_format = "#color_yellow"
+										raw_text = "[TaxRateSetting.GetEstate.GetSatisfaction|0%]"
+									}
+
+									# Satisfaction - GREEN when >= 50%
+									text_single = {
+										fontsize = 11
+										visible = "[GreaterThanOrEqualTo_CFixedPoint(TaxRateSetting.GetEstate.GetSatisfaction, '(CFixedPoint)0.5')]"
+										default_format = "#color_green"
+										raw_text = "[TaxRateSetting.GetEstate.GetSatisfaction|0%]"
+									}
+
+									# Satisfaction mood icons
+									icon = {
+										size = { 12 12 }
+										visible = "[LessThan_CFixedPoint(TaxRateSetting.GetEstate.GetSatisfaction, '(CFixedPoint)0.25')]"
+										texture = "gfx/interface/icons/flat_icons/sad.dds"
+										texture_density = 2
+									}
+									icon = {
+										size = { 12 12 }
+										visible = "[And(GreaterThanOrEqualTo_CFixedPoint(TaxRateSetting.GetEstate.GetSatisfaction, '(CFixedPoint)0.25'), LessThan_CFixedPoint(TaxRateSetting.GetEstate.GetSatisfaction, '(CFixedPoint)0.5'))]"
+										texture = "gfx/interface/icons/flat_icons/neutral.dds"
+										texture_density = 2
+									}
+									icon = {
+										size = { 12 12 }
+										visible = "[GreaterThanOrEqualTo_CFixedPoint(TaxRateSetting.GetEstate.GetSatisfaction, '(CFixedPoint)0.5')]"
+										texture = "gfx/interface/icons/flat_icons/happy.dds"
+										texture_density = 2
 									}
 
 									expand = {}
