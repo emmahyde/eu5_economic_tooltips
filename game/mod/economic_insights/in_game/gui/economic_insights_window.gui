@@ -1,0 +1,586 @@
+######################################################
+############## ECONOMIC INSIGHTS WINDOW ##############
+######################################################
+
+types EconomicInsightsTypes
+{
+	type economic_insights_tab_button = button_main_tab_alt {
+		layoutpolicy_horizontal = expanding
+	}
+}
+
+window = {
+	name = "economic_insights_window"
+	parentanchor = center
+	allow_outside = yes
+	size = { 950 700 }
+	layer = windows_layer
+	movable = yes
+
+	using = snd_UI_popup_show
+
+	vbox = {
+		minimumsize = { 950 700 }
+		set_parent_size_to_minimum = yes
+
+		# Header
+		hbox = {
+			layoutpolicy_horizontal = expanding
+			using = bg_age_event_title
+
+			blockoverride "bg_event_title_texture" {
+				texture = "gfx/interface/component_tiles/bg_big_round_corners_up.dds"
+				texture_density = 2
+				spriteType = corneredstretched
+				spriteBorder = { 40 40 }
+				margin = { 3 0 }
+				margin_bottom = -2
+			}
+
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				margin = { 20 15 }
+
+				icon = {
+					size = { 32 32 }
+					texture = "gfx/interface/icons/flat_icons/tabicons/economy.dds"
+					texture_density = 2
+				}
+
+				textbox = {
+					autoresize = yes
+					fontsize = 24
+					default_format = "#yellow_titles"
+					align = left|nobaseline
+					margin_left = 10
+					text = "ECONOMIC_INSIGHTS_TITLE"
+				}
+
+				expand = {}
+			}
+		}
+
+		# Tab buttons
+		hbox = {
+			layoutpolicy_horizontal = expanding
+			margin = { 10 5 }
+			spacing = 5
+
+			using = bg_paper_card
+
+			button_main_tab_alt = {
+				layoutpolicy_horizontal = expanding
+				down = "[Not(GetVariableSystem.Exists('ei_tab_trade'))]"
+				onclick = "[GetVariableSystem.Clear('ei_tab_trade')]"
+				onclick = "[GetVariableSystem.Clear('ei_tab_modifiers')]"
+				onclick = "[GetVariableSystem.Clear('ei_tab_estates')]"
+				onclick = "[GetVariableSystem.Clear('ei_tab_production')]"
+
+				blockoverride "on_action_left" {}
+				blockoverride "text" { text = "EI_TAB_TREASURY" }
+			}
+
+			button_main_tab_alt = {
+				layoutpolicy_horizontal = expanding
+				down = "[GetVariableSystem.Exists('ei_tab_trade')]"
+				onclick = "[GetVariableSystem.Set('ei_tab_trade', 'yes')]"
+				onclick = "[GetVariableSystem.Clear('ei_tab_modifiers')]"
+				onclick = "[GetVariableSystem.Clear('ei_tab_estates')]"
+				onclick = "[GetVariableSystem.Clear('ei_tab_production')]"
+
+				blockoverride "on_action_left" {}
+				blockoverride "text" { text = "EI_TAB_TRADE" }
+			}
+
+			button_main_tab_alt = {
+				layoutpolicy_horizontal = expanding
+				down = "[GetVariableSystem.Exists('ei_tab_modifiers')]"
+				onclick = "[GetVariableSystem.Set('ei_tab_modifiers', 'yes')]"
+				onclick = "[GetVariableSystem.Clear('ei_tab_trade')]"
+				onclick = "[GetVariableSystem.Clear('ei_tab_estates')]"
+				onclick = "[GetVariableSystem.Clear('ei_tab_production')]"
+
+				blockoverride "on_action_left" {}
+				blockoverride "text" { text = "EI_TAB_MODIFIERS" }
+			}
+
+			button_main_tab_alt = {
+				layoutpolicy_horizontal = expanding
+				down = "[GetVariableSystem.Exists('ei_tab_estates')]"
+				onclick = "[GetVariableSystem.Set('ei_tab_estates', 'yes')]"
+				onclick = "[GetVariableSystem.Clear('ei_tab_trade')]"
+				onclick = "[GetVariableSystem.Clear('ei_tab_modifiers')]"
+				onclick = "[GetVariableSystem.Clear('ei_tab_production')]"
+
+				blockoverride "on_action_left" {}
+				blockoverride "text" { text = "EI_TAB_ESTATES" }
+			}
+
+			button_main_tab_alt = {
+				layoutpolicy_horizontal = expanding
+				down = "[GetVariableSystem.Exists('ei_tab_production')]"
+				onclick = "[GetVariableSystem.Set('ei_tab_production', 'yes')]"
+				onclick = "[GetVariableSystem.Clear('ei_tab_trade')]"
+				onclick = "[GetVariableSystem.Clear('ei_tab_modifiers')]"
+				onclick = "[GetVariableSystem.Clear('ei_tab_estates')]"
+
+				blockoverride "on_action_left" {}
+				blockoverride "text" { text = "EI_TAB_PRODUCTION" }
+			}
+		}
+
+		# Main content area
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+			margin = { 10 10 }
+
+			using = bg_age_event_inner
+			using = bg_age_event_frame
+
+			# Treasury Tab Content
+			vbox = {
+				visible = "[Not(GetVariableSystem.Exists('ei_tab_trade'))]"
+				visible = "[Not(GetVariableSystem.Exists('ei_tab_modifiers'))]"
+				visible = "[Not(GetVariableSystem.Exists('ei_tab_estates'))]"
+				visible = "[Not(GetVariableSystem.Exists('ei_tab_production'))]"
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+
+				# Treasury summary header
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					margin = { 15 10 }
+					spacing = 30
+
+					vbox = {
+						spacing = 5
+						text_single = {
+							text = "EI_CURRENT_TREASURY"
+							fontsize = 14
+							default_format = "#subtle"
+						}
+						text_single = {
+							raw_text = "[Player.GetCurrencyValue('gold')|1]"
+							fontsize = 20
+							default_format = "#gold"
+						}
+					}
+
+					vbox = {
+						spacing = 5
+						text_single = {
+							text = "EI_MONTHLY_INCOME"
+							fontsize = 14
+							default_format = "#subtle"
+						}
+						text_single = {
+							raw_text = "[Player.GetModifierValueNoFormat('monthly_income_trade_and_tax')|+=1]"
+							fontsize = 20
+							default_format = "#positive"
+						}
+					}
+
+					vbox = {
+						spacing = 5
+						text_single = {
+							text = "EI_MONTHLY_BALANCE"
+							fontsize = 14
+							default_format = "#subtle"
+						}
+						text_single = {
+							raw_text = "[Player.GetModifierValueNoFormat('monthly_income_total')|+=1]"
+							fontsize = 20
+						}
+					}
+
+					expand = {}
+				}
+
+				# Treasury graph placeholder
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+
+					background = {
+						using = color_dark_blue_texture
+						alpha = 0.3
+
+						modify_texture = {
+							using = overlay_stone_texture
+							blend_mode = overlay
+							alpha = 0.2
+						}
+					}
+
+					vbox = {
+						parentanchor = center
+						spacing = 10
+
+						icon = {
+							size = { 64 64 }
+							texture = "gfx/interface/icons/flat_icons/tabicons/economy.dds"
+							texture_density = 2
+							alpha = 0.5
+						}
+
+						text_single = {
+							text = "EI_GRAPH_PLACEHOLDER"
+							fontsize = 16
+							default_format = "#subtle"
+							align = center
+						}
+
+						text_single = {
+							text = "EI_GRAPH_PLACEHOLDER_DESC"
+							fontsize = 12
+							default_format = "#weak"
+							align = center
+						}
+					}
+				}
+			}
+
+			# Trade Tab Content
+			vbox = {
+				visible = "[GetVariableSystem.Exists('ei_tab_trade')]"
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					margin = { 15 10 }
+					spacing = 30
+
+					vbox = {
+						spacing = 5
+						text_single = {
+							text = "EI_TRADE_INCOME"
+							fontsize = 14
+							default_format = "#subtle"
+						}
+						text_single = {
+							raw_text = "[Player.GetModifierValueNoFormat('monthly_income_trade_and_tax')|1]"
+							fontsize = 20
+							default_format = "#gold"
+						}
+					}
+
+					vbox = {
+						spacing = 5
+						text_single = {
+							text = "EI_TRADE_EFFICIENCY"
+							fontsize = 14
+							default_format = "#subtle"
+						}
+						text_single = {
+							raw_text = "[Player.GetModifierValue('trade_efficiency')|%0]"
+							fontsize = 20
+						}
+					}
+
+					expand = {}
+				}
+
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+
+					background = {
+						using = color_dark_blue_texture
+						alpha = 0.3
+					}
+
+					text_single = {
+						parentanchor = center
+						text = "EI_TRADE_GRAPH_COMING_SOON"
+						fontsize = 16
+						default_format = "#subtle"
+					}
+				}
+			}
+
+			# Modifiers Tab Content
+			vbox = {
+				visible = "[GetVariableSystem.Exists('ei_tab_modifiers')]"
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+
+				text_single = {
+					text = "EI_ACTIVE_MODIFIERS"
+					fontsize = 16
+					margin = { 15 10 }
+				}
+
+				scrollbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+
+					blockoverride "scrollbox_content" {
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 3
+
+							# Tax Efficiency
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 10 5 }
+
+								using = bg_paper_card
+
+								text_single = {
+									text = "Tax Efficiency"
+									layoutpolicy_horizontal = expanding
+								}
+								text_single = {
+									raw_text = "[Player.GetModifierValue('tax_income_efficiency')|%+0]"
+									align = right
+								}
+							}
+
+							# Trade Efficiency
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 10 5 }
+
+								using = bg_paper_card
+
+								text_single = {
+									text = "Trade Efficiency"
+									layoutpolicy_horizontal = expanding
+								}
+								text_single = {
+									raw_text = "[Player.GetModifierValue('trade_efficiency')|%+0]"
+									align = right
+								}
+							}
+
+							# Production Efficiency
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 10 5 }
+
+								using = bg_paper_card
+
+								text_single = {
+									text = "Production Efficiency"
+									layoutpolicy_horizontal = expanding
+								}
+								text_single = {
+									raw_text = "[Player.GetModifierValue('global_production_efficiency')|%+0]"
+									align = right
+								}
+							}
+
+							# Stability
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 10 5 }
+
+								using = bg_paper_card
+
+								text_single = {
+									text = "Stability"
+									layoutpolicy_horizontal = expanding
+								}
+								text_single = {
+									raw_text = "[Player.GetModifierValue('stability')|+=0]"
+									align = right
+								}
+							}
+
+							# War Exhaustion
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 10 5 }
+
+								using = bg_paper_card
+
+								text_single = {
+									text = "War Exhaustion"
+									layoutpolicy_horizontal = expanding
+								}
+								text_single = {
+									raw_text = "[Player.GetModifierValue('war_exhaustion')|1]"
+									align = right
+								}
+							}
+
+							# Inflation
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 10 5 }
+
+								using = bg_paper_card
+
+								text_single = {
+									text = "Inflation"
+									layoutpolicy_horizontal = expanding
+								}
+								text_single = {
+									raw_text = "[Player.GetModifierValue('monthly_inflation')|%+2]"
+									align = right
+								}
+							}
+
+							# Manpower
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 10 5 }
+
+								using = bg_paper_card
+
+								text_single = {
+									text = "Manpower Modifier"
+									layoutpolicy_horizontal = expanding
+								}
+								text_single = {
+									raw_text = "[Player.GetModifierValue('global_manpower_modifier')|%+0]"
+									align = right
+								}
+							}
+
+							# Prestige
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 10 5 }
+
+								using = bg_paper_card
+
+								text_single = {
+									text = "Monthly Prestige"
+									layoutpolicy_horizontal = expanding
+								}
+								text_single = {
+									raw_text = "[Player.GetModifierValue('monthly_prestige')|+=2]"
+									align = right
+								}
+							}
+						}
+					}
+				}
+			}
+
+			# Estates Tab Content
+			vbox = {
+				visible = "[GetVariableSystem.Exists('ei_tab_estates')]"
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+
+				text_single = {
+					text = "EI_ESTATE_TAX_CONTRIBUTIONS"
+					fontsize = 16
+					margin = { 15 10 }
+				}
+
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+
+					background = {
+						using = color_dark_blue_texture
+						alpha = 0.3
+					}
+
+					text_single = {
+						parentanchor = center
+						text = "EI_ESTATES_PIE_COMING_SOON"
+						fontsize = 16
+						default_format = "#subtle"
+					}
+				}
+			}
+
+			# Production Tab Content
+			vbox = {
+				visible = "[GetVariableSystem.Exists('ei_tab_production')]"
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					margin = { 15 10 }
+					spacing = 30
+
+					vbox = {
+						spacing = 5
+						text_single = {
+							text = "EI_PRODUCTION_EFFICIENCY"
+							fontsize = 14
+							default_format = "#subtle"
+						}
+						text_single = {
+							raw_text = "[Player.GetModifierValue('global_production_efficiency')|%0]"
+							fontsize = 20
+						}
+					}
+
+					vbox = {
+						spacing = 5
+						text_single = {
+							text = "EI_MONTHLY_DEVELOPMENT"
+							fontsize = 14
+							default_format = "#subtle"
+						}
+						text_single = {
+							raw_text = "[Player.GetModifierValue('global_monthly_development')|+=2]"
+							fontsize = 20
+						}
+					}
+
+					expand = {}
+				}
+
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+
+					background = {
+						using = color_dark_blue_texture
+						alpha = 0.3
+					}
+
+					text_single = {
+						parentanchor = center
+						text = "EI_PRODUCTION_GRAPH_COMING_SOON"
+						fontsize = 16
+						default_format = "#subtle"
+					}
+				}
+			}
+		}
+
+		# Bottom buttons
+		hbox = {
+			margin = { 0 15 }
+			spacing = 20
+
+			button_regular_diamond = {
+				text = "CLOSE_BUTTON"
+				using = button_resize_to_fit_text
+				onclick = "[ExecuteConsoleCommand('gui.ClearWidgets economic_insights_window')]"
+				onclick = "[GetVariableSystem.Clear('economic_insights_open')]"
+				using = snd_UI_close
+			}
+		}
+	}
+
+	# Close button in corner
+	widget = {
+		ignore_layout = yes
+		allow_outside = yes
+		parentanchor = top|right
+		position = { -10 5 }
+		size = { 55 55 }
+
+		button_close_alt = {
+			parentanchor = left|top
+			position = { 25 20 }
+			size = { 22 22 }
+			using = bg_circle
+			onclick = "[ExecuteConsoleCommand('gui.ClearWidgets economic_insights_window')]"
+				onclick = "[GetVariableSystem.Clear('economic_insights_open')]"
+			using = bg_circle_piechart
+		}
+	}
+}

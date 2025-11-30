@@ -1,0 +1,26 @@
+# Historical Graphs Mod - Monthly Data Capture Hook
+# Hooks into monthly_country_pulse to capture historical data
+
+monthly_country_pulse = {
+	on_actions = {
+		graphs_historical_data_capture
+	}
+}
+
+# This on_action is triggered monthly for all countries
+# We filter to only process for human players
+graphs_historical_data_capture = {
+	trigger = {
+		is_ai = no
+	}
+	effect = {
+		# Initialize tracking if needed (first run)
+		graphs_check_and_initialize = yes
+
+		# Capture current values into the 60-slot rotation
+		capture_monthly_snapshot = yes
+
+		# Recalculate statistics (avg, min, max, change)
+		calculate_graph_statistics = yes
+	}
+}

@@ -1,0 +1,500 @@
+# Economic Insights - Scripted Effects
+# Helper effects for data storage and manipulation
+
+# Shifts all historical data points back by one position
+# This makes room for new data at position 0
+# We keep 120 months of data (10 years)
+economic_insights_shift_history = {
+	# Shift gold data (from position 119 down to 0)
+	# Position 119 gets value from 118, 118 from 117, etc.
+	# Position 0 will be set with new data after this
+
+	# Due to scripting limitations, we do this in chunks
+	# Shift positions 119-100
+	if = {
+		limit = { has_variable = ei_gold_118 }
+		set_variable = { name = ei_gold_119 value = var:ei_gold_118 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_117 }
+		set_variable = { name = ei_gold_118 value = var:ei_gold_117 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_116 }
+		set_variable = { name = ei_gold_117 value = var:ei_gold_116 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_115 }
+		set_variable = { name = ei_gold_116 value = var:ei_gold_115 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_114 }
+		set_variable = { name = ei_gold_115 value = var:ei_gold_114 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_113 }
+		set_variable = { name = ei_gold_114 value = var:ei_gold_113 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_112 }
+		set_variable = { name = ei_gold_113 value = var:ei_gold_112 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_111 }
+		set_variable = { name = ei_gold_112 value = var:ei_gold_111 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_110 }
+		set_variable = { name = ei_gold_111 value = var:ei_gold_110 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_109 }
+		set_variable = { name = ei_gold_110 value = var:ei_gold_109 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_108 }
+		set_variable = { name = ei_gold_109 value = var:ei_gold_108 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_107 }
+		set_variable = { name = ei_gold_108 value = var:ei_gold_107 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_106 }
+		set_variable = { name = ei_gold_107 value = var:ei_gold_106 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_105 }
+		set_variable = { name = ei_gold_106 value = var:ei_gold_105 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_104 }
+		set_variable = { name = ei_gold_105 value = var:ei_gold_104 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_103 }
+		set_variable = { name = ei_gold_104 value = var:ei_gold_103 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_102 }
+		set_variable = { name = ei_gold_103 value = var:ei_gold_102 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_101 }
+		set_variable = { name = ei_gold_102 value = var:ei_gold_101 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_100 }
+		set_variable = { name = ei_gold_101 value = var:ei_gold_100 }
+	}
+
+	# Shift positions 99-80
+	if = {
+		limit = { has_variable = ei_gold_99 }
+		set_variable = { name = ei_gold_100 value = var:ei_gold_99 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_98 }
+		set_variable = { name = ei_gold_99 value = var:ei_gold_98 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_97 }
+		set_variable = { name = ei_gold_98 value = var:ei_gold_97 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_96 }
+		set_variable = { name = ei_gold_97 value = var:ei_gold_96 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_95 }
+		set_variable = { name = ei_gold_96 value = var:ei_gold_95 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_94 }
+		set_variable = { name = ei_gold_95 value = var:ei_gold_94 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_93 }
+		set_variable = { name = ei_gold_94 value = var:ei_gold_93 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_92 }
+		set_variable = { name = ei_gold_93 value = var:ei_gold_92 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_91 }
+		set_variable = { name = ei_gold_92 value = var:ei_gold_91 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_90 }
+		set_variable = { name = ei_gold_91 value = var:ei_gold_90 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_89 }
+		set_variable = { name = ei_gold_90 value = var:ei_gold_89 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_88 }
+		set_variable = { name = ei_gold_89 value = var:ei_gold_88 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_87 }
+		set_variable = { name = ei_gold_88 value = var:ei_gold_87 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_86 }
+		set_variable = { name = ei_gold_87 value = var:ei_gold_86 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_85 }
+		set_variable = { name = ei_gold_86 value = var:ei_gold_85 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_84 }
+		set_variable = { name = ei_gold_85 value = var:ei_gold_84 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_83 }
+		set_variable = { name = ei_gold_84 value = var:ei_gold_83 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_82 }
+		set_variable = { name = ei_gold_83 value = var:ei_gold_82 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_81 }
+		set_variable = { name = ei_gold_82 value = var:ei_gold_81 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_80 }
+		set_variable = { name = ei_gold_81 value = var:ei_gold_80 }
+	}
+
+	# Shift positions 79-60
+	if = {
+		limit = { has_variable = ei_gold_79 }
+		set_variable = { name = ei_gold_80 value = var:ei_gold_79 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_78 }
+		set_variable = { name = ei_gold_79 value = var:ei_gold_78 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_77 }
+		set_variable = { name = ei_gold_78 value = var:ei_gold_77 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_76 }
+		set_variable = { name = ei_gold_77 value = var:ei_gold_76 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_75 }
+		set_variable = { name = ei_gold_76 value = var:ei_gold_75 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_74 }
+		set_variable = { name = ei_gold_75 value = var:ei_gold_74 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_73 }
+		set_variable = { name = ei_gold_74 value = var:ei_gold_73 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_72 }
+		set_variable = { name = ei_gold_73 value = var:ei_gold_72 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_71 }
+		set_variable = { name = ei_gold_72 value = var:ei_gold_71 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_70 }
+		set_variable = { name = ei_gold_71 value = var:ei_gold_70 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_69 }
+		set_variable = { name = ei_gold_70 value = var:ei_gold_69 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_68 }
+		set_variable = { name = ei_gold_69 value = var:ei_gold_68 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_67 }
+		set_variable = { name = ei_gold_68 value = var:ei_gold_67 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_66 }
+		set_variable = { name = ei_gold_67 value = var:ei_gold_66 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_65 }
+		set_variable = { name = ei_gold_66 value = var:ei_gold_65 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_64 }
+		set_variable = { name = ei_gold_65 value = var:ei_gold_64 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_63 }
+		set_variable = { name = ei_gold_64 value = var:ei_gold_63 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_62 }
+		set_variable = { name = ei_gold_63 value = var:ei_gold_62 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_61 }
+		set_variable = { name = ei_gold_62 value = var:ei_gold_61 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_60 }
+		set_variable = { name = ei_gold_61 value = var:ei_gold_60 }
+	}
+
+	# Shift positions 59-40
+	if = {
+		limit = { has_variable = ei_gold_59 }
+		set_variable = { name = ei_gold_60 value = var:ei_gold_59 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_58 }
+		set_variable = { name = ei_gold_59 value = var:ei_gold_58 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_57 }
+		set_variable = { name = ei_gold_58 value = var:ei_gold_57 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_56 }
+		set_variable = { name = ei_gold_57 value = var:ei_gold_56 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_55 }
+		set_variable = { name = ei_gold_56 value = var:ei_gold_55 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_54 }
+		set_variable = { name = ei_gold_55 value = var:ei_gold_54 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_53 }
+		set_variable = { name = ei_gold_54 value = var:ei_gold_53 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_52 }
+		set_variable = { name = ei_gold_53 value = var:ei_gold_52 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_51 }
+		set_variable = { name = ei_gold_52 value = var:ei_gold_51 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_50 }
+		set_variable = { name = ei_gold_51 value = var:ei_gold_50 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_49 }
+		set_variable = { name = ei_gold_50 value = var:ei_gold_49 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_48 }
+		set_variable = { name = ei_gold_49 value = var:ei_gold_48 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_47 }
+		set_variable = { name = ei_gold_48 value = var:ei_gold_47 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_46 }
+		set_variable = { name = ei_gold_47 value = var:ei_gold_46 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_45 }
+		set_variable = { name = ei_gold_46 value = var:ei_gold_45 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_44 }
+		set_variable = { name = ei_gold_45 value = var:ei_gold_44 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_43 }
+		set_variable = { name = ei_gold_44 value = var:ei_gold_43 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_42 }
+		set_variable = { name = ei_gold_43 value = var:ei_gold_42 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_41 }
+		set_variable = { name = ei_gold_42 value = var:ei_gold_41 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_40 }
+		set_variable = { name = ei_gold_41 value = var:ei_gold_40 }
+	}
+
+	# Shift positions 39-20
+	if = {
+		limit = { has_variable = ei_gold_39 }
+		set_variable = { name = ei_gold_40 value = var:ei_gold_39 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_38 }
+		set_variable = { name = ei_gold_39 value = var:ei_gold_38 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_37 }
+		set_variable = { name = ei_gold_38 value = var:ei_gold_37 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_36 }
+		set_variable = { name = ei_gold_37 value = var:ei_gold_36 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_35 }
+		set_variable = { name = ei_gold_36 value = var:ei_gold_35 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_34 }
+		set_variable = { name = ei_gold_35 value = var:ei_gold_34 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_33 }
+		set_variable = { name = ei_gold_34 value = var:ei_gold_33 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_32 }
+		set_variable = { name = ei_gold_33 value = var:ei_gold_32 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_31 }
+		set_variable = { name = ei_gold_32 value = var:ei_gold_31 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_30 }
+		set_variable = { name = ei_gold_31 value = var:ei_gold_30 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_29 }
+		set_variable = { name = ei_gold_30 value = var:ei_gold_29 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_28 }
+		set_variable = { name = ei_gold_29 value = var:ei_gold_28 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_27 }
+		set_variable = { name = ei_gold_28 value = var:ei_gold_27 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_26 }
+		set_variable = { name = ei_gold_27 value = var:ei_gold_26 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_25 }
+		set_variable = { name = ei_gold_26 value = var:ei_gold_25 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_24 }
+		set_variable = { name = ei_gold_25 value = var:ei_gold_24 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_23 }
+		set_variable = { name = ei_gold_24 value = var:ei_gold_23 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_22 }
+		set_variable = { name = ei_gold_23 value = var:ei_gold_22 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_21 }
+		set_variable = { name = ei_gold_22 value = var:ei_gold_21 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_20 }
+		set_variable = { name = ei_gold_21 value = var:ei_gold_20 }
+	}
+
+	# Shift positions 19-0
+	if = {
+		limit = { has_variable = ei_gold_19 }
+		set_variable = { name = ei_gold_20 value = var:ei_gold_19 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_18 }
+		set_variable = { name = ei_gold_19 value = var:ei_gold_18 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_17 }
+		set_variable = { name = ei_gold_18 value = var:ei_gold_17 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_16 }
+		set_variable = { name = ei_gold_17 value = var:ei_gold_16 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_15 }
+		set_variable = { name = ei_gold_16 value = var:ei_gold_15 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_14 }
+		set_variable = { name = ei_gold_15 value = var:ei_gold_14 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_13 }
+		set_variable = { name = ei_gold_14 value = var:ei_gold_13 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_12 }
+		set_variable = { name = ei_gold_13 value = var:ei_gold_12 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_11 }
+		set_variable = { name = ei_gold_12 value = var:ei_gold_11 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_10 }
+		set_variable = { name = ei_gold_11 value = var:ei_gold_10 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_9 }
+		set_variable = { name = ei_gold_10 value = var:ei_gold_9 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_8 }
+		set_variable = { name = ei_gold_9 value = var:ei_gold_8 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_7 }
+		set_variable = { name = ei_gold_8 value = var:ei_gold_7 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_6 }
+		set_variable = { name = ei_gold_7 value = var:ei_gold_6 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_5 }
+		set_variable = { name = ei_gold_6 value = var:ei_gold_5 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_4 }
+		set_variable = { name = ei_gold_5 value = var:ei_gold_4 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_3 }
+		set_variable = { name = ei_gold_4 value = var:ei_gold_3 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_2 }
+		set_variable = { name = ei_gold_3 value = var:ei_gold_2 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_1 }
+		set_variable = { name = ei_gold_2 value = var:ei_gold_1 }
+	}
+	if = {
+		limit = { has_variable = ei_gold_0 }
+		set_variable = { name = ei_gold_1 value = var:ei_gold_0 }
+	}
+}

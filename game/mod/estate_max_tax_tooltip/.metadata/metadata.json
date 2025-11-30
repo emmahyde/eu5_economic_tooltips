@@ -1,0 +1,12 @@
+{
+    "name": "Estate Max Tax Breakdown",
+    "id": "",
+    "version": "1.0.0",
+    "supported_game_version": "1.0.0",
+    "short_description": "Adds max tax breakdown to estate tooltips",
+    "tags": ["Utilities", "User Interface"],
+    "relationships": [],
+    "game_custom_data": {
+        "multiplayer_synchronized": false
+    }
+}

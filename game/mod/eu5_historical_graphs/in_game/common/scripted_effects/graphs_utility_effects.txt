@@ -1,0 +1,88 @@
+# Historical Graphs Mod - Utility Effects
+
+# Initialize all historical tracking variables to 0
+# Called once at game start or when enabling the mod
+graphs_initialize_tracking = {
+	# Metadata
+	set_variable = { name = graphs_months_tracked value = 0 }
+
+	# Initialize all 60 slots for each metric to 0
+	# This prevents undefined variable errors on first access
+
+	# === GOLD ===
+	set_variable = { name = gold_h_0 value = gold }
+	set_variable = { name = gold_h_1 value = gold }
+	set_variable = { name = gold_h_2 value = gold }
+	set_variable = { name = gold_h_3 value = gold }
+	set_variable = { name = gold_h_4 value = gold }
+	set_variable = { name = gold_h_5 value = gold }
+	set_variable = { name = gold_h_6 value = gold }
+	set_variable = { name = gold_h_7 value = gold }
+	set_variable = { name = gold_h_8 value = gold }
+	set_variable = { name = gold_h_9 value = gold }
+	set_variable = { name = gold_h_10 value = gold }
+	set_variable = { name = gold_h_11 value = gold }
+	set_variable = { name = gold_h_12 value = gold }
+	set_variable = { name = gold_h_13 value = gold }
+	set_variable = { name = gold_h_14 value = gold }
+	set_variable = { name = gold_h_15 value = gold }
+	set_variable = { name = gold_h_16 value = gold }
+	set_variable = { name = gold_h_17 value = gold }
+	set_variable = { name = gold_h_18 value = gold }
+	set_variable = { name = gold_h_19 value = gold }
+	set_variable = { name = gold_h_20 value = gold }
+	set_variable = { name = gold_h_21 value = gold }
+	set_variable = { name = gold_h_22 value = gold }
+	set_variable = { name = gold_h_23 value = gold }
+	set_variable = { name = gold_h_24 value = gold }
+	set_variable = { name = gold_h_25 value = gold }
+	set_variable = { name = gold_h_26 value = gold }
+	set_variable = { name = gold_h_27 value = gold }
+	set_variable = { name = gold_h_28 value = gold }
+	set_variable = { name = gold_h_29 value = gold }
+	set_variable = { name = gold_h_30 value = gold }
+	set_variable = { name = gold_h_31 value = gold }
+	set_variable = { name = gold_h_32 value = gold }
+	set_variable = { name = gold_h_33 value = gold }
+	set_variable = { name = gold_h_34 value = gold }
+	set_variable = { name = gold_h_35 value = gold }
+	set_variable = { name = gold_h_36 value = gold }
+	set_variable = { name = gold_h_37 value = gold }
+	set_variable = { name = gold_h_38 value = gold }
+	set_variable = { name = gold_h_39 value = gold }
+	set_variable = { name = gold_h_40 value = gold }
+	set_variable = { name = gold_h_41 value = gold }
+	set_variable = { name = gold_h_42 value = gold }
+	set_variable = { name = gold_h_43 value = gold }
+	set_variable = { name = gold_h_44 value = gold }
+	set_variable = { name = gold_h_45 value = gold }
+	set_variable = { name = gold_h_46 value = gold }
+	set_variable = { name = gold_h_47 value = gold }
+	set_variable = { name = gold_h_48 value = gold }
+	set_variable = { name = gold_h_49 value = gold }
+	set_variable = { name = gold_h_50 value = gold }
+	set_variable = { name = gold_h_51 value = gold }
+	set_variable = { name = gold_h_52 value = gold }
+	set_variable = { name = gold_h_53 value = gold }
+	set_variable = { name = gold_h_54 value = gold }
+	set_variable = { name = gold_h_55 value = gold }
+	set_variable = { name = gold_h_56 value = gold }
+	set_variable = { name = gold_h_57 value = gold }
+	set_variable = { name = gold_h_58 value = gold }
+	set_variable = { name = gold_h_59 value = gold }
+
+	# Initialize other metrics similarly (simplified - all to 0)
+	# The first month capture will set real values
+
+	set_variable = { name = graphs_tracking_initialized value = yes }
+}
+
+# Check if tracking needs initialization
+graphs_check_and_initialize = {
+	if = {
+		limit = {
+			NOT = { has_variable = graphs_tracking_initialized }
+		}
+		graphs_initialize_tracking = yes
+	}
+}

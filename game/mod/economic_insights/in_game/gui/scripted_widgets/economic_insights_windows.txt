@@ -1,0 +1,1 @@
+gui/economic_insights_window.gui = economic_insights_window

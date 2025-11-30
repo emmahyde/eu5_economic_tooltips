@@ -1,0 +1,42 @@
+l_english:
+
+ # Window Title
+ ECONOMIC_INSIGHTS_TITLE: "Economic Insights Dashboard"
+
+ # Button Tooltips
+ EI_BUTTON_TOOLTIP: "Open Economic Insights Dashboard\nView detailed graphs of your nation's economic performance."
+ EI_BUTTON_CLOSE_TOOLTIP: "Close Economic Insights Dashboard"
+
+ # Tab Labels
+ EI_TAB_TREASURY: "Treasury"
+ EI_TAB_TRADE: "Trade"
+ EI_TAB_MODIFIERS: "Modifiers"
+ EI_TAB_ESTATES: "Estates"
+ EI_TAB_PRODUCTION: "Production"
+
+ # Treasury Tab
+ EI_CURRENT_TREASURY: "Current Treasury"
+ EI_MONTHLY_INCOME: "Monthly Income"
+ EI_MONTHLY_BALANCE: "Monthly Balance"
+ EI_GRAPH_PLACEHOLDER: "Treasury Graph"
+ EI_GRAPH_PLACEHOLDER_DESC: "Historical data will appear here as months pass"
+
+ # Trade Tab
+ EI_TRADE_INCOME: "Trade Income"
+ EI_TRADE_EFFICIENCY: "Trade Efficiency"
+ EI_TRADE_GRAPH_COMING_SOON: "Trade graph - tracking data..."
+
+ # Modifiers Tab
+ EI_ACTIVE_MODIFIERS: "Active Economic Modifiers"
+
+ # Estates Tab
+ EI_ESTATE_TAX_CONTRIBUTIONS: "Estate Tax Contributions"
+ EI_ESTATES_PIE_COMING_SOON: "Estate contributions pie chart - tracking data..."
+
+ # Production Tab
+ EI_PRODUCTION_EFFICIENCY: "Production Efficiency"
+ EI_MONTHLY_DEVELOPMENT: "Monthly Development"
+ EI_PRODUCTION_GRAPH_COMING_SOON: "Production graph - tracking data..."
+
+ # Common
+ CLOSE_BUTTON: "Close"

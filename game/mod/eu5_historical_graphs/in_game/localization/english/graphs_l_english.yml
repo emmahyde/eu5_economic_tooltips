@@ -1,0 +1,46 @@
+﻿l_english:
+ # Window
+ GRAPHS_WINDOW_TITLE:0 "Historical Graphs"
+ GRAPHS_OPEN_TOOLTIP:0 "Open Historical Graphs\n\nView trends of your empire's key metrics over time."
+ CLOSE_TOOLTIP:0 "Close"
+
+ # Tabs
+ GRAPHS_TAB_ECONOMY:0 "Economy"
+ GRAPHS_TAB_MILITARY:0 "Military"
+
+ # Time Range
+ GRAPHS_TIME_RANGE:0 "Range:"
+ GRAPHS_1_YEAR:0 "1Y"
+ GRAPHS_3_YEARS:0 "3Y"
+ GRAPHS_5_YEARS:0 "5Y"
+
+ # Legend
+ GRAPHS_LEGEND_TREASURY:0 "Treasury"
+ GRAPHS_LEGEND_TAX_BASE:0 "Tax Base"
+ GRAPHS_LEGEND_INCOME:0 "Monthly Income"
+ GRAPHS_LEGEND_MANPOWER:0 "Manpower"
+ GRAPHS_LEGEND_POPULATION:0 "Population"
+ GRAPHS_LEGEND_STABILITY:0 "Stability"
+
+ # Statistics
+ GRAPHS_STAT_CURRENT:0 "Current Tax Base"
+ GRAPHS_STAT_POPULATION:0 "Population"
+ GRAPHS_STAT_STABILITY:0 "Stability"
+ GRAPHS_STAT_AVERAGE:0 "5-Year Average"
+ GRAPHS_STAT_CHANGE:0 "5-Year Change"
+
+ # Economy Tab Tooltips (Yearly Markers)
+ # Uses captured variables from monthly data collection
+ GRAPHS_TOOLTIP_ECONOMY_Y0:0 "#bold Current Month#!\n#v Treasury:#! [Player.Var('gold_h_0')|2]@gold!\n#v Tax Base:#! [Player.Var('taxbase_h_0')|2]\n#v Population:#! [Player.Var('population_h_0')|0]"
+ GRAPHS_TOOLTIP_ECONOMY_Y1:0 "#bold 1 Year Ago#!\n#v Treasury:#! [Player.Var('gold_h_12')|2]@gold!\n#v Tax Base:#! [Player.Var('taxbase_h_12')|2]\n#v Population:#! [Player.Var('population_h_12')|0]"
+ GRAPHS_TOOLTIP_ECONOMY_Y2:0 "#bold 2 Years Ago#!\n#v Treasury:#! [Player.Var('gold_h_24')|2]@gold!\n#v Tax Base:#! [Player.Var('taxbase_h_24')|2]\n#v Population:#! [Player.Var('population_h_24')|0]"
+ GRAPHS_TOOLTIP_ECONOMY_Y3:0 "#bold 3 Years Ago#!\n#v Treasury:#! [Player.Var('gold_h_36')|2]@gold!\n#v Tax Base:#! [Player.Var('taxbase_h_36')|2]\n#v Population:#! [Player.Var('population_h_36')|0]"
+ GRAPHS_TOOLTIP_ECONOMY_Y4:0 "#bold 4 Years Ago#!\n#v Treasury:#! [Player.Var('gold_h_48')|2]@gold!\n#v Tax Base:#! [Player.Var('taxbase_h_48')|2]\n#v Population:#! [Player.Var('population_h_48')|0]"
+
+ # Military Tab Tooltips (Yearly Markers)
+ # Uses captured variables from monthly data collection
+ GRAPHS_TOOLTIP_MILITARY_Y0:0 "#bold Current Month#!\n#v Manpower:#! [Player.Var('manpower_h_0')|0]\n#v Population:#! [Player.Var('population_h_0')|0]"
+ GRAPHS_TOOLTIP_MILITARY_Y1:0 "#bold 1 Year Ago#!\n#v Manpower:#! [Player.Var('manpower_h_12')|0]\n#v Population:#! [Player.Var('population_h_12')|0]"
+ GRAPHS_TOOLTIP_MILITARY_Y2:0 "#bold 2 Years Ago#!\n#v Manpower:#! [Player.Var('manpower_h_24')|0]\n#v Population:#! [Player.Var('population_h_24')|0]"
+ GRAPHS_TOOLTIP_MILITARY_Y3:0 "#bold 3 Years Ago#!\n#v Manpower:#! [Player.Var('manpower_h_36')|0]\n#v Population:#! [Player.Var('population_h_36')|0]"
+ GRAPHS_TOOLTIP_MILITARY_Y4:0 "#bold 4 Years Ago#!\n#v Manpower:#! [Player.Var('manpower_h_48')|0]\n#v Population:#! [Player.Var('population_h_48')|0]"

@@ -1,0 +1,70 @@
+# Economic Insights - Monthly Data Collection
+# Hooks into the monthly country pulse to track economic metrics over time
+
+monthly_country_pulse = {
+	on_actions = {
+		economic_insights_monthly_snapshot
+	}
+}
+
+economic_insights_monthly_snapshot = {
+	trigger = {
+		is_ai = no  # Only track for human players
+	}
+	effect = {
+		# Initialize tracking if this is the first run
+		if = {
+			limit = {
+				NOT = { has_variable = ei_initialized }
+			}
+			set_variable = {
+				name = ei_initialized
+				value = yes
+			}
+			set_variable = {
+				name = ei_data_points
+				value = 0
+			}
+		}
+
+		# Shift historical data (move all data points back one slot)
+		# We track up to 120 months (10 years) of data
+		economic_insights_shift_history = yes
+
+		# Store current month's data at position 0 (most recent)
+		# Treasury/Gold
+		set_variable = {
+			name = ei_gold_0
+			value = gold
+		}
+
+		# Note: In EU5, accessing modifier values in effects requires script_value
+		# For now, we store basic variables that are directly accessible
+		# More complex metrics will need script_values to compute
+
+		# Increment data points counter (capped at 120)
+		change_variable = {
+			name = ei_data_points
+			add = 1
+		}
+		if = {
+			limit = {
+				var:ei_data_points > 120
+			}
+			set_variable = {
+				name = ei_data_points
+				value = 120
+			}
+		}
+
+		# Store current date for reference
+		set_variable = {
+			name = ei_last_update_year
+			value = current_year
+		}
+		set_variable = {
+			name = ei_last_update_month
+			value = current_month
+		}
+	}
+}

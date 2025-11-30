@@ -1,0 +1,549 @@
+# Historical Graphs Mod - Main Window
+# Shows historical data visualization with multiple metrics
+
+types GraphsWindow_Types {
+
+	type graphs_legend_entry = hbox {
+		spacing = 5
+
+		widget = {
+			size = { 20 4 }
+			background = {
+				block "legend_color" {
+					color = { 0.2 0.8 0.2 1.0 }
+				}
+			}
+		}
+		text_single = {
+			using = Font_Size_Small
+			block "legend_text" {
+				raw_text = "Metric"
+			}
+		}
+	}
+
+	type graphs_stat_box = vbox {
+		spacing = 2
+
+		text_single = {
+			using = Font_Size_Small
+			default_format = "#weak"
+			block "stat_label" {
+				raw_text = "Label"
+			}
+		}
+		text_single = {
+			using = Font_Size_Medium
+			block "stat_value" {
+				raw_text = "0"
+			}
+		}
+	}
+
+	# Tooltip marker - small dot with hover tooltip
+	type graphs_tooltip_marker = widget {
+		size = { 14 14 }
+		parentanchor = vcenter
+
+		widget = {
+			size = { 10 10 }
+			parentanchor = center
+
+			background = {
+				block "marker_color" {
+					color = { 1 1 1 0.8 }
+				}
+			}
+		}
+
+		block "marker_tooltip" {
+			tooltip = "Data point"
+		}
+	}
+}
+
+window = {
+	name = "graphs_history_window"
+	parentanchor = center
+	size = { 850 650 }
+	layer = windows_layer
+	movable = yes
+
+	using = Window_Background_Illustration
+
+	vbox = {
+		layoutpolicy_horizontal = expanding
+		layoutpolicy_vertical = expanding
+		margin = { 10 10 }
+
+		# === HEADER ===
+		hbox = {
+			layoutpolicy_horizontal = expanding
+			margin_bottom = 10
+
+			text_single = {
+				layoutpolicy_horizontal = expanding
+				text = "GRAPHS_WINDOW_TITLE"
+				using = Font_Type_Headers
+				using = Font_Size_Big
+			}
+
+			button = {
+				size = { 30 30 }
+				onclick = "[ExecuteConsoleCommand('gui.ClearWidgets graphs_history_window')]"
+				onclick = "[GetVariableSystem.Clear('graphs_window_open')]"
+				texture = "gfx/interface/buttons/round_button_texture_alt.dds"
+				tooltip = "Close"
+
+				icon = {
+					size = { 20 20 }
+					parentanchor = center
+					texture = "gfx/interface/icons/flat_icons/window_close.dds"
+				}
+			}
+		}
+
+		# === TAB BUTTONS ===
+		hbox = {
+			layoutpolicy_horizontal = expanding
+			margin_bottom = 10
+			spacing = 5
+
+			button_main_tab_alt = {
+				size = { 120 35 }
+				down = "[Not(GetVariableSystem.Exists('graphs_tab_military'))]"
+				onclick = "[GetVariableSystem.Clear('graphs_tab_military')]"
+				blockoverride "on_action_left" {}
+				blockoverride "text" { text = "GRAPHS_TAB_ECONOMY" }
+			}
+			button_main_tab_alt = {
+				size = { 120 35 }
+				down = "[GetVariableSystem.Exists('graphs_tab_military')]"
+				onclick = "[GetVariableSystem.Set('graphs_tab_military', 'yes')]"
+				blockoverride "on_action_left" {}
+				blockoverride "text" { text = "GRAPHS_TAB_MILITARY" }
+			}
+
+			expand = {}
+
+			# Time range toggle
+			hbox = {
+				spacing = 5
+
+				text_single = {
+					text = "GRAPHS_TIME_RANGE"
+					using = Font_Size_Small
+					default_format = "#weak"
+				}
+
+				button = {
+					size = { 60 30 }
+					text = "GRAPHS_1_YEAR"
+					down = "[GetVariableSystem.HasValue('graphs_range', '12')]"
+					onclick = "[GetVariableSystem.Set('graphs_range', '12')]"
+					texture = "gfx/interface/buttons/round_button_texture_alt.dds"
+				}
+				button = {
+					size = { 60 30 }
+					text = "GRAPHS_3_YEARS"
+					down = "[GetVariableSystem.HasValue('graphs_range', '36')]"
+					onclick = "[GetVariableSystem.Set('graphs_range', '36')]"
+					texture = "gfx/interface/buttons/round_button_texture_alt.dds"
+				}
+				button = {
+					size = { 60 30 }
+					text = "GRAPHS_5_YEARS"
+					down = "[Or(GetVariableSystem.HasValue('graphs_range', '60'), Not(GetVariableSystem.Exists('graphs_range')))]"
+					onclick = "[GetVariableSystem.Set('graphs_range', '60')]"
+					texture = "gfx/interface/buttons/round_button_texture_alt.dds"
+				}
+			}
+		}
+
+		# === MAIN GRAPH AREA ===
+		widget = {
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+
+			# Background
+			background = {
+				using = bg_round_corners
+				margin = { 5 5 }
+			}
+
+			# === ECONOMY TAB ===
+			vbox = {
+				visible = "[Not(GetVariableSystem.Exists('graphs_tab_military'))]"
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+				margin = { 10 10 }
+
+				# Legend
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					margin_bottom = 5
+					spacing = 20
+
+					graphs_legend_entry = {
+						blockoverride "legend_color" { color = { 0.9 0.75 0.2 1.0 } }
+						blockoverride "legend_text" { text = "GRAPHS_LEGEND_TREASURY" }
+					}
+					graphs_legend_entry = {
+						blockoverride "legend_color" { color = { 0.2 0.8 0.4 1.0 } }
+						blockoverride "legend_text" { text = "GRAPHS_LEGEND_TAX_BASE" }
+					}
+
+					expand = {}
+				}
+
+				# Graph
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+
+					# Grid lines
+					widget = {
+						size = { 100% 100% }
+
+						widget = {
+							position = { 0 25% }
+							size = { 100% 1 }
+							background = {
+								color = { 1 1 1 0.15 }
+							}
+						}
+						widget = {
+							position = { 0 50% }
+							size = { 100% 1 }
+							background = {
+								color = { 1 1 1 0.15 }
+							}
+						}
+						widget = {
+							position = { 0 75% }
+							size = { 100% 1 }
+							background = {
+								color = { 1 1 1 0.15 }
+							}
+						}
+					}
+
+					# Plot area - using built-in historical data for now
+					widget = {
+						size = { 100% 100% }
+
+						# Tax Base line (green)
+						plotline = {
+							size = { 100% 100% }
+							using = plot_line
+							width = 3
+							color = { 0.2 0.8 0.4 1.0 }
+							plotpoints = "[Player.GetHistoricalTaxBase]"
+						}
+
+						# Population line (gold) - using as proxy for treasury trend
+						plotline = {
+							size = { 100% 100% }
+							using = plot_line
+							width = 3
+							color = { 0.9 0.75 0.2 1.0 }
+							plotpoints = "[Player.GetHistoricalPopulation]"
+						}
+
+						# === YEARLY TOOLTIP MARKERS ===
+						# 5 markers at yearly intervals for hover tooltips
+
+						# Year 0 (Current) - rightmost
+						graphs_tooltip_marker = {
+							position = { 100% 50% }
+							widgetanchor = right|vcenter
+							blockoverride "marker_color" { color = { 0.9 0.75 0.2 1.0 } }
+							blockoverride "marker_tooltip" {
+								tooltip = "GRAPHS_TOOLTIP_ECONOMY_Y0"
+							}
+						}
+
+						# Year 1 (12 months ago)
+						graphs_tooltip_marker = {
+							position = { 80% 50% }
+							widgetanchor = center|vcenter
+							blockoverride "marker_color" { color = { 0.9 0.75 0.2 0.9 } }
+							blockoverride "marker_tooltip" {
+								tooltip = "GRAPHS_TOOLTIP_ECONOMY_Y1"
+							}
+						}
+
+						# Year 2 (24 months ago)
+						graphs_tooltip_marker = {
+							position = { 60% 50% }
+							widgetanchor = center|vcenter
+							blockoverride "marker_color" { color = { 0.9 0.75 0.2 0.8 } }
+							blockoverride "marker_tooltip" {
+								tooltip = "GRAPHS_TOOLTIP_ECONOMY_Y2"
+							}
+						}
+
+						# Year 3 (36 months ago)
+						graphs_tooltip_marker = {
+							position = { 40% 50% }
+							widgetanchor = center|vcenter
+							blockoverride "marker_color" { color = { 0.9 0.75 0.2 0.7 } }
+							blockoverride "marker_tooltip" {
+								tooltip = "GRAPHS_TOOLTIP_ECONOMY_Y3"
+							}
+						}
+
+						# Year 4 (48 months ago)
+						graphs_tooltip_marker = {
+							position = { 20% 50% }
+							widgetanchor = center|vcenter
+							blockoverride "marker_color" { color = { 0.9 0.75 0.2 0.6 } }
+							blockoverride "marker_tooltip" {
+								tooltip = "GRAPHS_TOOLTIP_ECONOMY_Y4"
+							}
+						}
+					}
+
+					# Y-axis labels
+					axis = {
+						size = { 100% 100% }
+						direction = vertical
+
+						axis_label = {
+							text_single = {
+								position = { -5 0 }
+								parentanchor = left|bottom
+								widgetanchor = right|bottom
+								align = right
+								using = Font_Size_Small
+								default_format = "#weak"
+								raw_text = "[Player.GetHistoricalMinTaxBase|0]"
+							}
+						}
+						axis_label = {
+							text_single = {
+								position = { -5 0 }
+								parentanchor = left|top
+								widgetanchor = right|top
+								align = right
+								using = Font_Size_Small
+								default_format = "#weak"
+								raw_text = "[Player.GetHistoricalMaxTaxBase|0]"
+							}
+						}
+					}
+				}
+
+				# X-axis date labels
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					margin_top = 5
+
+					text_single = {
+						using = Font_Size_Small
+						default_format = "#weak"
+						text = "[Player.GetStartDataDate]"
+					}
+					expand = {}
+					text_single = {
+						using = Font_Size_Small
+						default_format = "#weak"
+						text = "[Player.GetEndDataDate]"
+					}
+				}
+			}
+
+			# === MILITARY TAB ===
+			vbox = {
+				visible = "[GetVariableSystem.Exists('graphs_tab_military')]"
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+				margin = { 10 10 }
+
+				# Legend
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					margin_bottom = 5
+					spacing = 20
+
+					graphs_legend_entry = {
+						blockoverride "legend_color" { color = { 0.8 0.2 0.2 1.0 } }
+						blockoverride "legend_text" { text = "GRAPHS_LEGEND_MANPOWER" }
+					}
+
+					expand = {}
+				}
+
+				# Graph - Population as proxy for now
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+
+					# Grid lines
+					widget = {
+						size = { 100% 100% }
+
+						widget = {
+							position = { 0 25% }
+							size = { 100% 1 }
+							background = {
+								color = { 1 1 1 0.15 }
+							}
+						}
+						widget = {
+							position = { 0 50% }
+							size = { 100% 1 }
+							background = {
+								color = { 1 1 1 0.15 }
+							}
+						}
+						widget = {
+							position = { 0 75% }
+							size = { 100% 1 }
+							background = {
+								color = { 1 1 1 0.15 }
+							}
+						}
+					}
+
+					# Plot area
+					widget = {
+						size = { 100% 100% }
+
+						plotline = {
+							size = { 100% 100% }
+							using = plot_line
+							width = 3
+							color = { 0.8 0.2 0.2 1.0 }
+							plotpoints = "[Player.GetHistoricalPopulation]"
+						}
+
+						# === YEARLY TOOLTIP MARKERS ===
+						# 5 markers at yearly intervals for hover tooltips
+
+						# Year 0 (Current) - rightmost
+						graphs_tooltip_marker = {
+							position = { 100% 50% }
+							widgetanchor = right|vcenter
+							blockoverride "marker_color" { color = { 0.8 0.2 0.2 1.0 } }
+							blockoverride "marker_tooltip" {
+								tooltip = "GRAPHS_TOOLTIP_MILITARY_Y0"
+							}
+						}
+
+						# Year 1 (12 months ago)
+						graphs_tooltip_marker = {
+							position = { 80% 50% }
+							widgetanchor = center|vcenter
+							blockoverride "marker_color" { color = { 0.8 0.2 0.2 0.9 } }
+							blockoverride "marker_tooltip" {
+								tooltip = "GRAPHS_TOOLTIP_MILITARY_Y1"
+							}
+						}
+
+						# Year 2 (24 months ago)
+						graphs_tooltip_marker = {
+							position = { 60% 50% }
+							widgetanchor = center|vcenter
+							blockoverride "marker_color" { color = { 0.8 0.2 0.2 0.8 } }
+							blockoverride "marker_tooltip" {
+								tooltip = "GRAPHS_TOOLTIP_MILITARY_Y2"
+							}
+						}
+
+						# Year 3 (36 months ago)
+						graphs_tooltip_marker = {
+							position = { 40% 50% }
+							widgetanchor = center|vcenter
+							blockoverride "marker_color" { color = { 0.8 0.2 0.2 0.7 } }
+							blockoverride "marker_tooltip" {
+								tooltip = "GRAPHS_TOOLTIP_MILITARY_Y3"
+							}
+						}
+
+						# Year 4 (48 months ago)
+						graphs_tooltip_marker = {
+							position = { 20% 50% }
+							widgetanchor = center|vcenter
+							blockoverride "marker_color" { color = { 0.8 0.2 0.2 0.6 } }
+							blockoverride "marker_tooltip" {
+								tooltip = "GRAPHS_TOOLTIP_MILITARY_Y4"
+							}
+						}
+					}
+
+					# Y-axis labels
+					axis = {
+						size = { 100% 100% }
+						direction = vertical
+
+						axis_label = {
+							text_single = {
+								position = { -5 0 }
+								parentanchor = left|bottom
+								widgetanchor = right|bottom
+								align = right
+								using = Font_Size_Small
+								default_format = "#weak"
+								raw_text = "[Player.GetHistoricalMinPopulation|0]"
+							}
+						}
+						axis_label = {
+							text_single = {
+								position = { -5 0 }
+								parentanchor = left|top
+								widgetanchor = right|top
+								align = right
+								using = Font_Size_Small
+								default_format = "#weak"
+								raw_text = "[Player.GetHistoricalMaxPopulation|0]"
+							}
+						}
+					}
+				}
+
+				# X-axis date labels
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					margin_top = 5
+
+					text_single = {
+						using = Font_Size_Small
+						default_format = "#weak"
+						text = "[Player.GetStartDataDate]"
+					}
+					expand = {}
+					text_single = {
+						using = Font_Size_Small
+						default_format = "#weak"
+						text = "[Player.GetEndDataDate]"
+					}
+				}
+			}
+		}
+
+		# === STATISTICS ROW ===
+		hbox = {
+			layoutpolicy_horizontal = expanding
+			margin_top = 10
+			spacing = 30
+
+			graphs_stat_box = {
+				blockoverride "stat_label" { text = "GRAPHS_STAT_CURRENT" }
+				blockoverride "stat_value" { raw_text = "[Player.GetTotalTaxBase|2]@gold!" }
+			}
+			graphs_stat_box = {
+				blockoverride "stat_label" { text = "GRAPHS_STAT_POPULATION" }
+				blockoverride "stat_value" { raw_text = "[Player.GetTotalPopulation|0]@population!" }
+			}
+			graphs_stat_box = {
+				blockoverride "stat_label" { text = "GRAPHS_STAT_STABILITY" }
+				blockoverride "stat_value" { raw_text = "[Player.GetStability|+1]" }
+			}
+
+			expand = {}
+		}
+	}
+}
+
+# Open button is now in message_log.gui override (economic_insights mod)

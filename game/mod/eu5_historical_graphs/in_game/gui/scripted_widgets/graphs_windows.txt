@@ -1,0 +1,1 @@
+gui/graphs_main_window.gui = graphs_history_window

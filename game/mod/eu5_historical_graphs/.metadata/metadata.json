@@ -1,0 +1,12 @@
+{
+    "name": "Historical Graphs",
+    "id": "",
+    "version": "1.0.0",
+    "supported_game_version": "1.0.0",
+    "short_description": "Enhanced historical data visualization with multi-line graphs, legends, grid lines, and hover tooltips",
+    "tags": ["Utilities", "User Interface"],
+    "relationships": [],
+    "game_custom_data": {
+        "multiplayer_synchronized": false
+    }
+}

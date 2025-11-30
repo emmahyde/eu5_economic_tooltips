@@ -1,0 +1,12 @@
+{
+    "name": "Economic Insights Dashboard",
+    "id": "",
+    "version": "1.0.0",
+    "supported_game_version": "1.0.0",
+    "short_description": "Adds an Economic Insights dashboard with interactive graphs showing treasury, trade, modifiers, and estate data over time.",
+    "tags": ["Utilities", "User Interface"],
+    "relationships": [],
+    "game_custom_data": {
+        "multiplayer_synchronized": false
+    }
+}
