@@ -1,7 +1,8 @@
 ﻿l_english:
- # Estate Max Tax Breakdown (from original mod)
- ESTATE_MAX_TAX_LABEL: "Maximum Tax"
- ESTATE_MAX_TAX_TOTAL: "Total"
+ # Estate Tax Details Section (renamed from Maximum Tax)
+ ESTATE_MAX_TAX_LABEL: "Tax Details"
+ ESTATE_MAX_TAX_TOTAL: "Maximum Tax"
+ ESTATE_TAXED_INCOME: "Taxed Income"
 
  # Better Tooltips - Estate Satisfaction
  BETTER_TOOLTIPS_CURRENT: "Current"

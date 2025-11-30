@@ -2331,7 +2331,7 @@ template Estate_tooltip {
 				}
 			}
 
-			### MAXIMUM TAX - Single line with hover tooltip ###
+			### TAX DETAILS - Maximum Tax and Taxed Income ###
 			TooltipListBase = {
 				visible = "[Not(Estate.GetType.IsAlwaysLoyal)]"
 				blockoverride "block_title" {
@@ -2346,6 +2346,8 @@ template Estate_tooltip {
 						raw_text = "#bold [Estate.GetMaxTax]#!"
 					}
 				}
+				# Taxed Income slot - filled via blockoverride when TaxRateSetting context available
+				block "extra_tax_details" {}
 			}
 
 			TooltipTextBlock = {

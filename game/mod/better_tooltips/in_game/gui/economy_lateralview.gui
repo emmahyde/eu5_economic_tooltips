@@ -1180,7 +1180,7 @@ lateralview = {
 
 																	datacontext = "[TaxRateSetting.GetEstate]"
 																	tooltipwidget = {
-																		using = EstateSatisfactionEquilibrium_tooltip
+																		using = estate_satisfaction_tooltip
 																	}
 
 																	text_single = {

@@ -191,7 +191,7 @@ Types HUD_TopbarTypes
 					item = {
 						stat_player = {
 							layoutpolicy_horizontal = expanding
-							visible = "[Not(ObjectsEqual(Country.GetGovernment.GetEstateFromKey('crown_estate').GetType, TaxRateSetting.GetEstate.GetType))]"
+							visible = "[And(TaxRateSetting.ShouldShow, Not(ObjectsEqual(Country.GetGovernment.GetEstateFromKey('crown_estate').GetType, TaxRateSetting.GetEstate.GetType)))]"
 							datacontext = "[TaxRateSetting.GetEstate]"
 
 							blockoverride "stat_button" {
@@ -204,7 +204,7 @@ Types HUD_TopbarTypes
 								downpressedframe = 4
 								disableframe = 4
 
-								color = "[EstatesItem.GetEstate.GetType.GetMapColor]"
+								color = "[TaxRateSetting.GetEstate.GetType.GetMapColor]"
 
 								action_tooltip = {
 									click_type = left
@@ -219,14 +219,14 @@ Types HUD_TopbarTypes
 								}
 
 								action_button = {
-									onclick = "[EstatesItem.AddNewPrivilege]"
+									onclick = "[Estate.AddNewPrivilege]"
 									parentanchor = center
 									size = { 100% 90% }
 									actor = "[Player]"
 									enabled = yes
 									parameter = {
 										parameter_name = "target"
-										parameter_value = "[EstatesItem.GetEstate]"
+										parameter_value = "[TaxRateSetting.GetEstate]"
 									}
 									right_click_and_hold_action = { action_name = "bribe_estate" }
 									tooltip_enabled = no
@@ -237,6 +237,32 @@ Types HUD_TopbarTypes
 									blockoverride "extra_estates_info" {
 										TooltipStringPairList = {
 											datacontext = "[StringToStringPairList(Estate.GetSatisfactionTooltip)]"
+										}
+									}
+									blockoverride "extra_tax_details" {
+										TooltipManualTableField = {
+											visible = "[TaxRateSetting.GetEstate.CanCollectTaxes]"
+											text_single = {
+												text = "ESTATE_TAXED_INCOME"
+											}
+											expand = {}
+											text_single = {
+												raw_text = "#G [TaxRateSetting.GetIncome|2+=]@gold!#!"
+											}
+											tooltipwidget = {
+												using = EstateIncomeBreakdownTooltip
+											}
+										}
+										TooltipManualTableField = {
+											visible = "[Not(TaxRateSetting.GetEstate.CanCollectTaxes)]"
+											text_single = {
+												text = "ESTATE_TAXED_INCOME"
+											}
+											expand = {}
+											icon = {
+												size = { 16 16 }
+												using = warning_icon_texture
+											}
 										}
 									}
 								}
@@ -277,6 +303,9 @@ Types HUD_TopbarTypes
 										fontsize = 10
 										visible = "[TaxRateSetting.GetEstate.CanCollectTaxes]"
 										raw_text = "[TaxRateSetting.GetIncome|2+=]@gold!"
+										tooltipwidget = {
+											using = EstateIncomeBreakdownTooltip
+										}
 									}
 
 									# Warning icon if can't collect taxes
@@ -284,6 +313,9 @@ Types HUD_TopbarTypes
 										size = { 12 12 }
 										using = warning_icon_texture
 										visible = "[Not(TaxRateSetting.GetEstate.CanCollectTaxes)]"
+										tooltipwidget = {
+											using = EstateIncomeBreakdownTooltip
+										}
 									}
 
 									expand = {}
