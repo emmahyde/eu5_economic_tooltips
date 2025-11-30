@@ -1,0 +1,200 @@
+# Better Tooltips - Estate Satisfaction Tooltip Override
+# Swaps "Current" and "Equilibrium" rows so Equilibrium shows first
+
+template estate_satisfaction_tooltip {
+	ContextualTooltipType = {
+		blockoverride "title_text" {
+			datacontext = "[Estate]"
+			text = "EST_SATISFACTION_TITLE"
+		}
+
+		blockoverride "concept_link" {
+			text = [estate_satisfaction|E]
+		}
+		blockoverride "title_icon_texture" {
+			texture = "[GetEstateIcon(Estate.GetType)]"
+		}
+
+		blockoverride "tooltip_content" {
+			# Custom layout: Current (highlighted), Equilibrium, Monthly Change
+			TooltipListBase = {
+				TooltipListRowContent = {
+					# Row 1: Current Satisfaction (HIGHLIGHTED - first position)
+					TooltipManualTableField = {
+						blockoverride "field_content" {
+							text_single = {
+								text = "BETTER_TOOLTIPS_CURRENT"
+							}
+							expand = {}
+							text_single = {
+								raw_text = "[Estate.GetSatisfaction|Y2%]"
+							}
+						}
+					}
+
+					# Row 2: Satisfaction Equilibrium
+					TooltipManualTableField = {
+						blockoverride "field_content" {
+							text_single = {
+								text = "[estate_satisfaction_equilibrium|e]"
+							}
+							expand = {}
+							text_single = {
+								text = "[Estate.GetTargetSatisfactionTooltipWrapper]"
+							}
+						}
+					}
+
+					# Row 3: Monthly Change
+					TooltipManualTableField = {
+						blockoverride "field_content" {
+							text_single = {
+								text = "BETTER_TOOLTIPS_MONTHLY_CHANGE"
+							}
+							expand = {}
+							text_single = {
+								raw_text = "[Estate.GetMonthlySatisfactionChange|+=2%]"
+							}
+						}
+					}
+				}
+			}
+
+			TooltipStringPairList = {
+				blockoverride "block_title" {
+					datacontext = "[Estate]"
+					text = "CURRENT_SATIS_IMPACT"
+				}
+				datacontext = "[StringToStringPairList(Estate.GetSatisfactionImpact)]"
+			}
+
+			TooltipTextBlock = {
+				blockoverride "text" {
+					text = "[Estate.GetRaiseLevyInfo]"
+				}
+			}
+		}
+	}
+}
+
+# Keep other templates from base game
+template estate_population_tooltip {
+	ContextualTooltipType = {
+		blockoverride "title_text" {
+			text = "GOVERNMENT_WINDOW_ESTATES_POPULATION_TITLE"
+		}
+
+		blockoverride "title_icon_texture" {
+			texture = "[GetEstateIcon(Estate.GetType)]"
+			datacontext = "[Estate]"
+			tooltipwidget = {
+				using = Estate_tooltip
+			}
+		}
+
+		blockoverride "concept_link" {
+			text = [population|E]
+		}
+
+		blockoverride "tooltip_content" {
+			TooltipStringPairList = {
+				textcontext = "[Estate.GetPopulationInfo]"
+			}
+		}
+	}
+}
+
+template estate_relative_power_tooltip {
+	ContextualTooltipType = {
+		blockoverride "title_text" {
+			datacontext = "[Estate]"
+			text = "ESTATE_RELATIVE_POWER_TITLE"
+		}
+
+		blockoverride "title_icon_texture" {
+			texture = "[GetEstateIcon(Estate.GetType)]"
+		}
+
+		blockoverride "title_button" {
+            hint_button = {
+                action_tooltip = {
+                    title = "OPEN_HINT"
+                    on_action = "[OpenLateralViewWithParams('hints', 'selected_hint = hint_crown_power')]"
+                }
+            }
+        }
+
+		blockoverride "concept_link" {
+			text = [estate_power|e]
+		}
+
+		blockoverride "tooltip_content" {
+			TooltipTextBlock = {
+				blockoverride "text" {
+					text = "[Estate.GetEstatePowerInfo]"
+				}
+			}
+
+			TooltipStringPairList = {
+				textcontext = "[Estate.GetEstatePowerInfoBreakdown]"
+			}
+
+			TooltipStringPairList = {
+				textcontext = "[Estate.GetPowerImpactInfo]"
+				blockoverride "block_title" {
+					text = "[Estate.GetPowerImpactTitle]"
+				}
+			}
+		}
+	}
+}
+
+template estate_income_tooltip {
+	ContextualTooltipType = {
+		blockoverride "title_text" {
+			datacontext = "[Estate]"
+			text = "ESTATE_INCOME_BREAKDOWN"
+		}
+
+		blockoverride "title_icon_texture" {
+			texture = "[GetEstateIcon(Estate.GetType)]"
+			texture_density = 2
+		}
+
+		blockoverride "concept_link" {
+			text = [estate_tax_base|E]
+		}
+
+		blockoverride "tooltip_content" {
+			TooltipStringPairList = {
+				textcontext = "[Estate.GetTaxBaseInfo]"
+			}
+		}
+	}
+}
+
+template estate_expense_tooltip {
+	ContextualTooltipType = {
+		blockoverride "title_text" {
+			datacontext = "[Estate]"
+			text = "CURRENT_EXPENSE_FOR_ESTATE"
+		}
+
+		blockoverride "title_icon_texture" {
+			texture = "[GetEstateIcon(Estate.GetType)]"
+			texture_density = 2
+		}
+
+		blockoverride "concept_link" {
+			text = [pop_needs|E]
+		}
+
+		blockoverride "tooltip_content" {
+
+			TooltipScrolledStringPairList = {
+				blockoverride "block_scrollarea" { maximumsize = { -1 420 }}
+				textcontext = "[Estate.GetExpensesInfo]"
+			}
+		}
+	}
+}

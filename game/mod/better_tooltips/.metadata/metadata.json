@@ -1,0 +1,12 @@
+{
+    "name": "Better Tooltips",
+    "id": "",
+    "version": "1.0.0",
+    "supported_game_version": "1.0.7",
+    "short_description": "Enhanced tooltips for estates, RGOs, and more",
+    "tags": ["Utilities", "User Interface"],
+    "relationships": [],
+    "game_custom_data": {
+        "multiplayer_synchronized": false
+    }
+}

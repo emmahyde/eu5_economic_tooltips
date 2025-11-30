@@ -1,0 +1,1 @@
+- check the logs whenever you complete a change to see if it errored

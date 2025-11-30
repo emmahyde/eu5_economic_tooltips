@@ -1,0 +1,12 @@
+﻿l_english:
+ # Estate Max Tax Breakdown (from original mod)
+ ESTATE_MAX_TAX_LABEL: "Maximum Tax"
+ ESTATE_MAX_TAX_TOTAL: "Total"
+
+ # Better Tooltips - Estate Satisfaction
+ BETTER_TOOLTIPS_CURRENT: "Current"
+ BETTER_TOOLTIPS_MONTHLY_CHANGE: "Monthly Change"
+
+ # Better Tooltips - RGO Promotion with Control
+ BETTER_TOOLTIPS_PROVINCE_CONTROL: "Province Control"
+ BETTER_TOOLTIPS_CONTROL_EFFECTS: "Control Effects"
